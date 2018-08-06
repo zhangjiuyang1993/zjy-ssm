@@ -15,7 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,5 +117,16 @@ public class UserController {
         }
         log.info("request: user/delete, ids: " + ids);
         return ResultGenerator.genSuccessResult();
+    }
+
+    @RequestMapping("/page")
+    public String findUserByPage(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+        //获取当前是第几页
+        int pageNum = Integer.valueOf(request.getParameter("pageNum"));
+        //每页显示的记录数
+        int pageSize = 5;
+        //获取一个PageBean对象，pb中包含了所有分页所需要的数据
+        //PageBean pb = userService.findAllUserWithPage(pageNum, pageSize);
+        return "/page/main";
     }
 }

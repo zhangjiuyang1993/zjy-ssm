@@ -27,6 +27,15 @@
         </if>
     </select>
 
+    <select id="findAllUser" resultMap="UserResult">
+        select id,user_name,password,role_name from ssm_user
+    </select>
+
+    <select id="findAll" resultMap="UserResult">
+        select id,user_name,password,role_name from ssm_user where
+            id > (select max(id) from ssm_user where id in (select top #{startIndex} id from ssm_user)) LIMIT #{pageSize}
+    </select>
+
     <select id="getTotalUser" parameterType="Map" resultType="Long">
         select count(*) from ssm_user
         <where>

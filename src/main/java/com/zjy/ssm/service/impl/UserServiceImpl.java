@@ -1,6 +1,7 @@
 package com.zjy.ssm.service.impl;
 
 import com.zjy.ssm.dao.UserDao;
+import com.zjy.ssm.domain.PageBean;
 import com.zjy.ssm.entity.User;
 import com.zjy.ssm.service.UserService;
 import com.zjy.ssm.util.AntiXssUtil;
@@ -62,5 +63,23 @@ public class UserServiceImpl implements UserService {
             return 0;
         }
         return userDao.deleteUser(id);
+    }
+
+    @Override
+    public PageBean<User> findAllUserWithPage(int pageNum, int pageSize) {
+        //在这里就要将PageBean中的数据创建好，然后将该对象传回去
+        //先要从数据库中获取所有用户的数据量有多少，获得totalRecord
+        List<User> allUser = userDao.findAllUser();
+        int totalRecord = allUser.size();
+
+        //有了三个初始数据，就能够创建PageBean对象
+        PageBean pb = new PageBean(pageNum, pageSize, totalRecord);
+
+        //获取PageBean对象中startIndex
+        int startIndex = pb.getStartIndex();
+
+        //有startIndex和pageSize，就可以拿到每页的数据
+        pb.setList(userDao.findAll(startIndex, pageSize));
+        return pb;
     }
 }

@@ -65,4 +65,22 @@ public interface UserDao {
      * @return int
      */
     public int deleteUser(Integer id);
+
+    /*
+     * 查询数据库中所有的用户记录数
+     * @author zhangjiuyang
+     * @date 2018/8/6 14:49
+     * @param []
+     * @return java.util.List<com.zjy.ssm.entity.User>
+     */
+    List<User> findAllUser();
+
+    /*  
+     * 每页显示的记录数
+     * @author zhangjiuyang
+     * @date 2018/8/6 14:50
+     * @param [startIndex, pageSize]
+     * @return java.util.List<com.zjy.ssm.entity.User>
+     */
+    List<User> findAll(int startIndex, int pageSize);
 }

@@ -6,6 +6,7 @@
  */
 package com.zjy.ssm.service;
 
+import com.zjy.ssm.domain.PageBean;
 import com.zjy.ssm.entity.User;
 
 import java.util.List;
@@ -65,4 +66,13 @@ public interface UserService {
      * @return int
      */
     public int deleteUser(Integer id);
+
+    /*
+     * 分页查询用户数据
+     * @author zhangjiuyang
+     * @date 2018/8/6 15:15
+     * @param [pageNum, pageSize]
+     * @return com.zjy.ssm.domain.PageBean<com.zjy.ssm.entity.User>
+     */
+    public PageBean<User> findAllUserWithPage(int pageNum, int pageSize);
 }
